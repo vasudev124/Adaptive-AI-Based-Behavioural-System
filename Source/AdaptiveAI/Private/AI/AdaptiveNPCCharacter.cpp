@@ -20,7 +20,17 @@ void AAdaptiveNPCCharacter::BeginPlay()
 	{
 		PawnSensingComponent->OnSeePawn.AddDynamic(this, &AAdaptiveNPCCharacter::OnSeePlayer);
 		PawnSensingComponent->OnHearNoise.AddDynamic(this, &AAdaptiveNPCCharacter::OnHearNoise);
+		
+		// Apply Dynamic Config
+		PawnSensingComponent->SightRadius = AIConfig.SightRadius;
+		PawnSensingComponent->HearingThreshold = AIConfig.HearingRadius;
 	}
+	
+	if (GetCharacterMovement())
+	{
+		GetCharacterMovement()->MaxWalkSpeed = AIConfig.BaseMovementSpeed;
+	}
+
 	AdaptiveAIController = Cast<AAdaptiveAIController>(GetController());
 }
 
